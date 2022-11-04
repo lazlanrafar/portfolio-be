@@ -7,8 +7,9 @@ let cors = require("cors");
 
 require("dotenv").config();
 
-let indexRouter = require("./routes/index");
-let usersRouter = require("./routes/users");
+const skillRouter = require("./app/skill/skill.Route");
+const workRouter = require("./app/work/work.Route");
+const projectRouter = require("./app/project/project.Route");
 
 let app = express();
 app.use(cors());
@@ -23,8 +24,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+const apiVersion = process.env.API_VERSION || "v1";
+const preRoute = "/api/" + apiVersion;
+
+app.use(`${preRoute}/skill`, skillRouter);
+app.use(`${preRoute}/work`, workRouter);
+app.use(`${preRoute}/project`, projectRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
