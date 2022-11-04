@@ -14,10 +14,8 @@ module.exports = {
     });
   },
   /**
-   *
    * @param {Int} id id skill
    * @param {Object} data nama
-   * @returns
    */
   UpdateSkillRepository: async (id, data) => {
     return prisma.skill.update({
@@ -25,6 +23,16 @@ module.exports = {
         id: +id,
       },
       data,
+    });
+  },
+  /**
+   * @param {Int} id id skill
+   */
+  DeleteSkillRepository: async (id) => {
+    return prisma.skill.delete({
+      where: {
+        id: +id,
+      },
     });
   },
 };
